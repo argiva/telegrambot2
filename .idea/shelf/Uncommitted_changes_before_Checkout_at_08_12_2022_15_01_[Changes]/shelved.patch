@@ -1,0 +1,12 @@
+Index: lowprice.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># TODO: Здесь будет реализация команды /lowprice\r\n
+===================================================================
+diff --git a/lowprice.py b/lowprice.py
+--- a/lowprice.py	
++++ b/lowprice.py	
+@@ -1,1 +1,1 @@
+-# TODO: Здесь будет реализация команды /lowprice
++# TODO: Здесь будет реализация команды /lowprice
+\ No newline at end of file
