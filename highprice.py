@@ -19,7 +19,7 @@ def get_message(message) -> None:
             bot.send_message(message.from_user.id, f'Привет, {message.chat.username}! Это бот для поиска отелей. Для вывода списка команд введите /help')
         elif message.text.lower() == 'hello world':
             bot.send_message(message.from_user.id, f'Hello, {message.chat.username}!')
-        elif message.text == '/highprice':
+        elif message.text in ('/highprice', '/lowprice'):
             bot.send_message(message.from_user.id, 'Введите город: ')
             bot.register_next_step_handler(message, get_city)
         elif message.text.lower() == "/help":
@@ -175,8 +175,9 @@ def results(message) -> None:
     for hotel in js:
         bot.send_message(message.from_user.id, hotel['text'])
         bot.send_message(message.from_user.id, 'Фотографии:')
-        for photo in hotel['photo']:
-            bot.send_photo(message.from_user.id, photo)
+        if data['photo']:
+            for photo in hotel['photo']:
+                bot.send_photo(message.from_user.id, photo)
 
 
 bot.polling(none_stop=True, interval=0)

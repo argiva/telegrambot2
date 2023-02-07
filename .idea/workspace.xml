@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59cffefe-45b0-42e4-b1b4-e1e919952149" name="Changes" comment="Add main.py">
-      <change afterPath="$PROJECT_DIR$/req.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+    <list default="true" id="59cffefe-45b0-42e4-b1b4-e1e919952149" name="Changes" comment="Add command /highprice">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/highprice.py" beforeDir="false" afterPath="$PROJECT_DIR$/highprice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/req.py" beforeDir="false" afterPath="$PROJECT_DIR$/req.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670502030980</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add command /highprice">
+      <created>1675701316503</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1675701316503</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -239,6 +246,7 @@
     <MESSAGE value="Add hello.py and create other files" />
     <MESSAGE value="Add hello.py and create other files (fix)" />
     <MESSAGE value="Add main.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add main.py" />
+    <MESSAGE value="Add command /highprice" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add command /highprice" />
   </component>
 </project>

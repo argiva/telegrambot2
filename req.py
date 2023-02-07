@@ -59,12 +59,13 @@ def get_hotel_detail(hotel_id: int, cache: dict, price: float) -> dict:
                       f"\t{js['data']['propertyInfo']['summary']['location']['coordinates']['longitude']}\n\n"
                       f"Цена за ночь: {price}\n",
               'photo': [photo['image']['url'] for num, photo in
-                        zip(cache['photo'], js['data']['propertyInfo']['propertyGallery']['images'])]}
+                        zip(cache['photo'], js['data']['propertyInfo']['propertyGallery']['images'])],
+              'price': price}
 
     return result
 
 
-def get_hotel_id(cache:dict) -> list:
+def get_hotel_id(cache: dict) -> list:
     """
     Функция парсинга получения ID отеля
 
@@ -97,7 +98,7 @@ def get_hotel_id(cache:dict) -> list:
         ],
         "resultsStartingIndex": 0,
         "resultsSize": cache['resultsSize'],
-        "sort": "PRICE"
+        "sort": 'PRICE_LOW_TO_HIGH'
     }
     headers = {
         "content-type": "application/json",
@@ -106,7 +107,12 @@ def get_hotel_id(cache:dict) -> list:
     }
 
     response = requests.request("POST", url, json=payload, headers=headers)
-    for hotel_id in json.loads(response.text)['data']['propertySearch']['properties']:
+    js = json.loads(response.text)['data']['propertySearch']['properties']
+
+    for hotel_id in js:
         hotels_data.append(
             get_hotel_detail(hotel_id=hotel_id['id'], cache=cache, price=hotel_id['price']['lead']['formatted']))
+    if cache['command'].text == '/highprice':
+        hotels_data = sorted(hotels_data, key=lambda x: x['price'], reverse=True)
+
     return hotels_data
