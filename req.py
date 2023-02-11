@@ -24,7 +24,7 @@ def get_city_id(city: str) -> dict:
     return city_list
 
 
-def get_hotel_detail(hotel_id: int, cache: dict, price: float) -> dict:
+def get_hotel_detail(hotel_id: int, cache: dict, price: float, distance: float) -> dict:
     """
     Функция парсинга для получения деталей отелей
 
@@ -57,10 +57,12 @@ def get_hotel_detail(hotel_id: int, cache: dict, price: float) -> dict:
                       f"\t{js['data']['propertyInfo']['summary']['location']['address']['province']}\n\n"
                       f"Координаты:\n\t{js['data']['propertyInfo']['summary']['location']['coordinates']['latitude']}\n"
                       f"\t{js['data']['propertyInfo']['summary']['location']['coordinates']['longitude']}\n\n"
+                      f"Расстояние от центра: {distance} миль\n"
                       f"Цена за ночь: {price}\n",
               'photo': [photo['image']['url'] for num, photo in
                         zip(cache['photo'], js['data']['propertyInfo']['propertyGallery']['images'])],
-              'price': price}
+              'price': price,
+              'distance': distance}
 
     return result
 
@@ -111,8 +113,14 @@ def get_hotel_id(cache: dict) -> list:
 
     for hotel_id in js:
         hotels_data.append(
-            get_hotel_detail(hotel_id=hotel_id['id'], cache=cache, price=hotel_id['price']['lead']['formatted']))
+            get_hotel_detail(hotel_id=hotel_id['id'],
+                             cache=cache,
+                             price=hotel_id['price']['lead']['formatted'],
+                             distance=hotel_id['destinationInfo']['distanceFromDestination']['value']))
+
     if cache['command'].text == '/highprice':
         hotels_data = sorted(hotels_data, key=lambda x: x['price'], reverse=True)
+    elif cache['command'].text == '/bestdeal':
+        hotels_data = sorted(hotels_data, key=lambda x: x['distance'])
 
     return hotels_data

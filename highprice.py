@@ -3,10 +3,10 @@ import telebot
 from bot_data import bot, calendar_1, calendar, now, Calendar
 
 
-@bot.message_handler(content_types=['text'])
+@bot.message_handler(commands=['highprice'])
 def get_message(message) -> None:
     """
-    Функция приёма сообщений от пользователя и их обработка в зависимости от текста
+    Функция приёма команды /highprice и её обработка
 
     :param message: сообщение от пользователя
     :return: None
@@ -15,21 +15,8 @@ def get_message(message) -> None:
 
     with bot.retrieve_data(user_id=message.from_user.id, chat_id=message.chat.id) as data:
         data.update({'command': message})
-        if message.text.lower() in ['привет', '/start']:
-            bot.send_message(message.from_user.id, f'Привет, {message.chat.username}! Это бот для поиска отелей. Для вывода списка команд введите /help')
-        elif message.text.lower() == 'hello world':
-            bot.send_message(message.from_user.id, f'Hello, {message.chat.username}!')
-        elif message.text in ('/highprice', '/lowprice'):
-            bot.send_message(message.from_user.id, 'Введите город: ')
-            bot.register_next_step_handler(message, get_city)
-        elif message.text.lower() == "/help":
-            bot.send_message(message.from_user.id,
-                             '● /history — вывод истории поиска отелей\n'
-                             '● /lowprice — вывод списка самых дешёвых отелей в городе\n'
-                             '● /highprice — вывод списка самых дорогих отелей в городе\n'
-                             '● /bestdeal — вывод списка отелей, наиболее подходящих по цене и расположению от центра\n')
-        else:
-            bot.send_message(message.from_user.id, 'Некорректная команда. Для вывода списка команд введите /help...')
+        bot.send_message(message.from_user.id, 'Введите город: ')
+        bot.register_next_step_handler(message, get_city)
 
 
 @bot.callback_query_handler(func=lambda call: call.data.isalnum())
