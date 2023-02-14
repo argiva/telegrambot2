@@ -1,6 +1,7 @@
 import req
 import telebot
 from bot_data import bot, calendar_1, calendar, now, Calendar
+from history import add_history
 
 
 @bot.callback_query_handler(func=lambda call: call.data.isalnum())
@@ -145,7 +146,9 @@ def results(message) -> None:
         js = req.get_hotel_id(cache=data)
     for hotel in js:
         bot.send_message(message.from_user.id, hotel['text'])
-        bot.send_message(message.from_user.id, 'Фотографии:')
         if data['photo']:
+            bot.send_message(message.from_user.id, 'Фотографии:')
             for photo in hotel['photo']:
                 bot.send_photo(message.from_user.id, photo)
+        data['answer'].append(hotel['text'])
+    add_history(message)
